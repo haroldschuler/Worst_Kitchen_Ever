@@ -10,16 +10,11 @@
     height: 70px;
     max-height: 90px;
     min-width: 700px;
-    /* width: 90%; */
     background-color: rgb(125, 111, 134);
-    /* padding: 10px 50px; */
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 50px;
     padding-right: 50px;
-    /* changed to correct navbar */
-    /* position: fixed; */
-    /* added for navbar */
     position: sticky;
     z-index: 999;
     display: block;
@@ -55,18 +50,9 @@
     border: 0px;
 }
 .content {
-    /* height: 1000px; */
     min-height: calc(100vh - 90px);
-    /* max-height: calc(100vh - 90px); */
-    /* background-color: rgb(133, 199, 242); */
     background-color: rgb(252, 228, 216);
-    /* changed to correct navbar */
-    /* position: relative; */
-    /* top: 90px; */
-    /* make sure the line above matches the pixel height in .header */
     display: flex;
-    /* justify-content: center;
-    align-items: center; */
 }
 .left_column, .right_column {
     flex: 1;
@@ -75,20 +61,14 @@
 .middle_column_search_page {
     flex: 1.5;
     display: flex;
-    /* background-color: salmon; */
     padding: 50px;
     flex-direction: column;
     width: 500px;
 }
 .search_box {
-    /* position: relative;
-    top: 50%; */
-    /* background-color: aqua; */
     background-color: rgb(237, 203, 177);
     border: 4px solid rgb(125, 111, 134);
     border-radius: 25px;
-    /* width: 500px; */
-    /* height: 200px; */
     padding: 50px 30px;
     display: flex;
     flex-direction: column;
@@ -99,21 +79,14 @@
     font-size: 2em;
 }
 #dropdown {
-    /* width: 485px; */
-    /* width: 33.5%; */
     width: 100%;
-    /* height: 120px; */
-    /* can't include padding */
     padding-top: 10px;
     padding-bottom: 10px;
     display:flex;
     justify-content: space-evenly;
-    
-    /* background-color: lawngreen; */
-    
-    /* z-index: 1; */
-    /* position: absolute; */
-    /* top: 315px; */
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    min-width: 270px;
 }
 #dropdown_left_column, #dropdown_right_column {
     width: 45%;
@@ -125,19 +98,14 @@
     text-align: center;
     border-radius: 10px;
     z-index: 2;
+    min-width: 100px;
 }
 .selected_ingredients{
-    /* background-color: saddlebrown; */
     background-color: rgb(237, 203, 177);
     border: 4px solid rgb(125, 111, 134);
     border-radius: 25px;
     padding: 30px;
 }
-/* .ingredients_box {
-    background-color: cornflowerblue;
-    display: flex;
-    flex-wrap: wrap;
-} */
 .ingredients_box > p {
     margin-right: 100px;
 }
@@ -155,7 +123,6 @@
     font-size: 20px;
     padding: 12px;
     width: 100%;
-    /* border-radius: 15px; */
     border: 2px solid rgb(125, 111, 134);
 }
 .recipe_search_button_div {
@@ -168,17 +135,15 @@
 }
 
 
-/* Recipe results page */
+/*************************** Recipe results page *********************************/
 .middle_column_recipes_page {
     flex: 1.8;
     display: flex;
-    /* background-color: salmon; */
     padding: 50px;
     flex-direction: column;
 }
 .recipe_box {
     min-height: 200px;
-    /* width: 650px; */
     display: flex;
     border-radius: 25px;
     background-color: rgb(125, 111, 134);
@@ -196,8 +161,6 @@
     background-color: rgb(125, 111, 134);
     position: sticky;
     padding: 5%;
-    /* changed for sticky navbar - added 90px for the extra navbar height */
-    /* top: 25px; */
     top: 115px;
 }
 .shopping_list ul {
@@ -214,11 +177,10 @@
     margin-bottom: 50px;
 }
 
-/* Show single recipe page */
+/***************************** Show single recipe page ***********************************/
 .left_column_show_recipe_page {
     flex: 3;
     display: flex;
-    /* background-color: salmon; */
     padding: 25px;
     padding-right: 50px;
     flex-direction: column;
@@ -243,7 +205,6 @@
 }
 .right_side_details > h3 {
     margin-right: 15px;
-    /* font-size: 50px; */
 }
 .recipe_contents ul {
     margin-top: 5px;
@@ -262,7 +223,7 @@
 }
 
 
-/* *****************************LOGIN PAGE*********************************** */
+/* *****************************LOGIN / SIGN UP PAGE******************************* */
 .login_container {
     margin: auto;
     display: flex;

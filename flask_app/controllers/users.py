@@ -43,7 +43,6 @@ def registering():
     session['user_name'] = User.get_user_from_id(user_id).first_name
     print("the new user's name is " + session['user_name'] + " and is logged in session")
     return redirect(f'/{session["current_page"]}')
-    # return redirect('/')
 
 @app.route('/go_to_login', methods=['POST'])
 def going_to_login():
@@ -66,7 +65,6 @@ def logging_in():
         return redirect('/login')
     
     return redirect(f'/{session["current_page"]}')
-    # return redirect('/')
 
 
 @app.route('/logging_out', methods=['POST'])
@@ -75,4 +73,3 @@ def logging_out():
         del session['user_id']
         del session['user_name']
     return redirect(f'/{session["current_page"]}')
-    # return redirect('/')

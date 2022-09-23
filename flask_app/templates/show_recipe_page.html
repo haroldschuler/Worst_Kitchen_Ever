@@ -57,7 +57,7 @@
                                 <h3>Ingredients</h3>
                                 <ul>
                                     {% for item in ingredients_list: %}
-                                        <li onclick="add_item_to_shopping_list(this)">{{item}}</li>
+                                        <li onclick="add_item_to_shopping_list(this)" onmouseover="cursor_pointer(this)">{{item}}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -88,7 +88,7 @@
                     {% if 'user_id' in session %}
                         <ul>
                             {% for item in shopping_list %}
-                            <li onclick="remove_from_list(this)" value="{{item.id}}">{{item.item_name}}</li>
+                            <li onclick="remove_from_list(this)" onmouseover="cursor_pointer(this)" value="{{item.id}}">{{item.item_name}}</li>
                             {% endfor %}
                         </ul>
                         <p>Click on ingredients to add or remove</p>

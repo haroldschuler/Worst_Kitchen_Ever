@@ -55,7 +55,6 @@
                         <form id="ingredient_search_form">
                             <input type="text" id="ingredient_input_bar" oninput="search_bar_results(this)">
                         </form>
-                        <!-- added this for dropdown -->
                         <div id="dropdown">
                             <div id="dropdown_left_column"></div>
                             <div id="dropdown_right_column"></div>
@@ -82,7 +81,7 @@
                     {% if 'user_id' in session %}
                         <ul>
                             {% for item in shopping_list %}
-                                <li onclick="remove_from_list(this)" value="{{item.id}}">{{item.item_name}}</li>
+                                <li onclick="remove_from_list(this)" onmouseover="cursor_pointer(this)" value="{{item.id}}">{{item.item_name}}</li>
                             {% endfor %}
                         </ul>
                         <p>Click on ingredients to add or remove</p>

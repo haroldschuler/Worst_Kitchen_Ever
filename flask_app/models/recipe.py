@@ -33,7 +33,6 @@ class Recipe:
             recipes.append(cls(item))
         for item in recipes:
             item.missed_ingredients = item.missed_ingredients.split(",")
-        # print(recipes[1])
         return recipes
     
     @classmethod

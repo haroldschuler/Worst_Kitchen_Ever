@@ -15,7 +15,6 @@ class Ingredient:
         query = "SELECT * FROM ingredients WHERE ingredient_name LIKE %(ingredient_name)s;"
         results = connectToMySQL('my_kitchen_schema').query_db(query,data)
         ingredients = []
-        # print(results)
         if len(results) > 0:
             for item in results:
                 ingredients.append(cls(item))

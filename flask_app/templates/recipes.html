@@ -74,7 +74,7 @@
                     {% if 'user_id' in session %}
                         <ul>
                             {% for item in shopping_list %}
-                                <li onclick="remove_from_list(this)" value="{{item.id}}">{{item.item_name}}</li>
+                                <li onclick="remove_from_list(this)" onmouseover="cursor_pointer(this)" value="{{item.id}}">{{item.item_name}}</li>
                             {% endfor %}
                         </ul>
                         <p>Click on ingredients to add or remove</p>

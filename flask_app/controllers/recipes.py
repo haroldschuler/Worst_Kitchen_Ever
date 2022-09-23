@@ -12,14 +12,6 @@ from flask_app.models.user import User
 def show_recipe_suggestions():
     print("here are some recipes")
     recipe_search_results = Recipe.get_all_recipes()
-    # missing_ingredients = recipe_search_results.missed_ingredients.split(",")
-    # missing_ingredients = recipe_search_results.missed_ingredients
-    print(recipe_search_results[0].missed_ingredients)
-    print(recipe_search_results[1].missed_ingredients)
-    print(recipe_search_results[2].missed_ingredients)
-    # print(recipe_search_results[0].recipe_name)
-    # print(recipe_search_results[0].missed_ingredients)
-    # print(recipe_search_results[0].image_link)
     session['current_page'] = 'recipes'
     shopping_list = []
     if 'user_name' in session:
@@ -36,23 +28,6 @@ def routing_to_recipe(recipe_id):
     single_recipe = Recipe.get_one_recipe_by_id({'id': recipe_id})
     sp_id = single_recipe.spoonacular_id
 
-    r = "not_practice"
-    if r == "practice":
-        data = {
-            'id': recipe_id,
-            'instructions': "add a thing, add thing 2, do thing 3",
-            'cook_time': 60,
-            'full_ingredient_list': "1 cup almonds//split_locate//1/2 cup milk//split_locate//2 eggs",
-            'credit': "harold's recipe hut"
-            }
-        Recipe.update_recipe(data)
-        full_recipe = Recipe.get_one_recipe_by_id({'id': recipe_id})
-        print(full_recipe.full_ingredient_list)
-        ingredients_list = full_recipe.full_ingredient_list.split("//split_locate//")
-        print(ingredients_list)
-        return render_template('show_recipe_page.html',full_recipe=full_recipe, ingredients_list=ingredients_list)
-
-    # this can be commented out for actual use
     if single_recipe.instructions != None:
         print("going straight to recipe without API")
         ingredients_list = single_recipe.full_ingredient_list.split("//split_locate//")
@@ -68,7 +43,6 @@ def routing_to_recipe(recipe_id):
     
     r = requests.get(f"https://api.spoonacular.com/recipes/{sp_id}/information?apiKey={api_key}")
     recipe_info = r.json()
-    print(recipe_info)
 
     ingredient_list_and_amount = ""
 
