@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worst Kitchen Ever</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="inner_header">
+                <div class="navbar_left">
+                    <img src="/static/images/null.png" alt="header">
+                    <h1>Worst Kitchen Ever</h1>
+                </div>
+                <div class="navbar_right">
+                    {% if 'user_id' in session %}
+                    <div id="logout">
+                        <form action="/logging_out" method="post">
+                            <input type="submit" value="Logout" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    {% else %}
+                    <div id="login">
+                        <form action="/go_to_login" method="post">
+                            <input type="submit" value="Login" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    <div id="signup">
+                        <form action="/go_to_sign_up" method="post">
+                            <input type="submit" value="Sign Up" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <div class="left_column">
+                <div class="filters_list">
+                    <h3>Here are some filters:</h3>
+                    <p>Filter</p>
+                    <p>Filter</p>
+                    <p>Filter</p>
+                </div>
+            </div>
+            <div class="middle_column_recipes_page main">
+                <div class="results_title_bar">
+                    <h2>Here are the recipes that fit your criteria:</h2>
+                    <form action="/back_to_search" method="post">
+                        <button class="button">New Search</button>
+                    </form>
+                </div>
+                {% for recipe in recipe_search_results %}
+                    <div class="recipe_box" onmouseover="recipe_box_mouseover(this)" onmouseout="recipe_box_mouseout(this)" onclick="redirect_to_recipe('{{recipe.id}}')">
+                        <img src="{{recipe.image_link}}" alt="{{recipe.recipe_name}}_pic">
+                        <div class="recipe_info_box">
+                            <h2>{{recipe.recipe_name}}</h2>
+                            <br>
+                            <h4>Additional ingredients you'll need:</h4>
+                            {% for item in recipe.missed_ingredients %}
+                                <p>{{item}}</p>
+                            {% endfor %}
+                            <br>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="right_column">
+                <div class="shopping_list">
+                    <h3>Shopping List:</h3>
+                    {% if 'user_id' in session %}
+                        <ul>
+                            {% for item in shopping_list %}
+                                <li onclick="remove_from_list(this)" value="{{item.id}}">{{item.item_name}}</li>
+                            {% endfor %}
+                        </ul>
+                        <p>Click on ingredients to add or remove</p>
+                        <br>
+                        <form id="clear_shopping_list_form" action="/clear_shopping_list" method="post">
+                            <input type="submit" value="Clear Shopping List" class="button">
+                        </form>
+                    {% else %}
+                    <br>    
+                    <p>Log in to add to your shopping list!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</body>
+</html>

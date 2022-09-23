@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worst Kitchen Ever</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="inner_header">
+                <div class="navbar_left">
+                    <img src="/static/images/null.png" alt="header">
+                    <h1>Worst Kitchen Ever</h1>
+                </div>
+                <div class="navbar_right">
+                    <div id="signup">
+                        <form action="/go_to_sign_up" method="post">
+                            <input type="submit" value="Sign Up" class="login_signup_buttons">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="content login_container">
+            <div class="middle_col_login">
+                <div class="login_col">
+                    <div class="title">
+                        <h1>Login</h1>
+                    </div>
+                    <br>
+                    {% with messages = get_flashed_messages(category_filter=["login_error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="flash_error">{{message}}</p>
+                            {% endfor %}
+                            <br>
+                        {% endif %}
+                    {% endwith %}
+                    <form action="/logging_in" method="post">
+                        <label for="email2">Email Address:</label>
+                        <br>
+                        <input type="text" name="email2" id="email2" class="input_box" size="35">
+                        <br><br>
+                        <label for="password2">Password:</label>
+                        <br>
+                        <input type="password" name="password2" id="password2" class="input_box" size="35">
+                        <br><br>
+                        <input type="submit" value="Login" class="button" id="login_button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</body>
+</html>

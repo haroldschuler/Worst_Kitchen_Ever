@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worst Kitchen Ever</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="inner_header">
+                <div class="navbar_left">
+                    <img src="/static/images/null.png" alt="header">
+                    <h1>Worst Kitchen Ever</h1>
+                </div>
+                <div class="navbar_right">
+                    {% if 'user_id' in session %}
+                    <div id="logout">
+                        <form action="/logging_out" method="post">
+                            <input type="submit" value="Logout" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    {% else %}
+                    <div id="login">
+                        <form action="/go_to_login" method="post">
+                            <input type="submit" value="Login" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    <div id="signup">
+                        <form action="/go_to_sign_up" method="post">
+                            <input type="submit" value="Sign Up" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <div class="left_column"></div>
+            <div class="middle_column_search_page main">
+                <div class="search_box">
+                    <h2>What ingredients do you have?</h2>
+                    <br><br>
+                    {% with messages = get_flashed_messages(category_filter=["search_error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="flash_error">{{message}}</p>
+                                <br>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="ingredient_search_form_div">
+                        <form id="ingredient_search_form">
+                            <input type="text" id="ingredient_input_bar" oninput="search_bar_results(this)">
+                        </form>
+                        <!-- added this for dropdown -->
+                        <div id="dropdown">
+                            <div id="dropdown_left_column"></div>
+                            <div id="dropdown_right_column"></div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <div class="selected_ingredients">
+                    <h2>Here's what you've selected so far:</h2>
+                    <br>
+                    <form action="/find_recipes" method="post" id="submit_ingredients_form">
+                        <div class="ingredients_box" id="selected_ingredients">
+                        </div>
+                        <br>
+                        <div class="recipe_search_button_div">
+                            <input type="submit" value="Search for Recipes!" class="button">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="right_column">
+                <div class="shopping_list">
+                    <h3>Shopping List:</h3>
+                    {% if 'user_id' in session %}
+                        <ul>
+                            {% for item in shopping_list %}
+                                <li onclick="remove_from_list(this)" value="{{item.id}}">{{item.item_name}}</li>
+                            {% endfor %}
+                        </ul>
+                        <p>Click on ingredients to add or remove</p>
+                        <br>
+                        <form id="clear_shopping_list_form" action="/clear_shopping_list" method="post">
+                            <input type="submit" value="Clear Shopping List" class="button">
+                        </form>
+                    {% else %}
+                    <br>    
+                    <p>Log in to add to your shopping list!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</body>
+</html>

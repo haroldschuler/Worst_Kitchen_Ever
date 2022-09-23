@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worst Kitchen Ever</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="inner_header">
+                <div class="navbar_left">
+                    <img src="/static/images/null.png" alt="header">
+                    <h1>Worst Kitchen Ever</h1>
+                </div>
+                <div class="navbar_right">
+                    {% if 'user_id' in session %}
+                    <div id="logout">
+                        <form action="/logging_out" method="post">
+                            <input type="submit" value="Logout" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    {% else %}
+                    <div id="login">
+                        <form action="/go_to_login" method="post">
+                            <input type="submit" value="Login" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    <div id="signup">
+                        <form action="/go_to_sign_up" method="post">
+                            <input type="submit" value="Sign Up" class="login_signup_buttons">
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <div class="left_column_show_recipe_page main">
+                <div class="full_recipe">
+                    <div class="recipe_title_bar">
+                        <div class="left_side_details">
+                            <img src="{{full_recipe.image_link}}" alt="recipe_pic">
+                            <h1>{{full_recipe.recipe_name}}</h1>
+                        </div>
+                        <div class="right_side_details">
+                            <h3>Total Time:</h3>
+                            <p>{{full_recipe.cook_time}} minutes</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="recipe_contents">
+                        <div class="ingredients_container">
+                            <div class="ingredients">
+                                <h3>Ingredients</h3>
+                                <ul>
+                                    {% for item in ingredients_list: %}
+                                        <li onclick="add_item_to_shopping_list(this)">{{item}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="space_filler"></div>
+                        </div>
+                        <br>
+                        <h3>Instructions</h3>
+                        <p>{{full_recipe.instructions}}</p>
+                    </div>
+                    <br>
+                    <div class="recipe_credits">
+                        <h5>Credit: {{full_recipe.credit}}</h5>
+                    </div>
+                </div>
+                <br>
+                <div class="button_box">
+                    <form action="/back_to_recipes" method="post">
+                        <button class="button">Back to Recipes</button>
+                    </form>
+                    <form action="/back_to_search" method="post">
+                        <button class="button">New Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="right_column">
+                <div class="shopping_list">
+                    <h3>Shopping List:</h3>
+                    {% if 'user_id' in session %}
+                        <ul>
+                            {% for item in shopping_list %}
+                            <li onclick="remove_from_list(this)" value="{{item.id}}">{{item.item_name}}</li>
+                            {% endfor %}
+                        </ul>
+                        <p>Click on ingredients to add or remove</p>
+                        <br>
+                        <form id="clear_shopping_list_form" action="/clear_shopping_list" method="post">
+                            <input type="submit" value="Clear Shopping List" class="button">
+                        </form>
+                    {% else %}
+                    <br>    
+                    <p>Log in to add to your shopping list!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</body>
+</html>
