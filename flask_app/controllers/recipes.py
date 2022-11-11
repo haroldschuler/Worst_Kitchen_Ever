@@ -8,6 +8,9 @@ from flask_app.models.ingredient import Ingredient
 from flask_app.models.shopping_list import ShoppingList
 from flask_app.models.user import User
 
+import os
+
+# Finds all the recipes from the database from the API call and displays for the user
 @app.route('/recipes')
 def show_recipe_suggestions():
     print("here are some recipes")
@@ -21,9 +24,11 @@ def show_recipe_suggestions():
         shopping_list = ShoppingList.get_shopping_list(data)
     return render_template('recipes.html',recipe_search_results=recipe_search_results, shopping_list=shopping_list)
 
+# Directs the user to the single selected recipe
+# Performs another API call to retrieve the full instructions
 @app.route('/recipes/recipe/<int:recipe_id>')
 def routing_to_recipe(recipe_id):
-    api_key = '1259ebb6297343a79a643091713a9e79'
+    api_key = os.environ.get("RECIPE_KEY")
 
     single_recipe = Recipe.get_one_recipe_by_id({'id': recipe_id})
     sp_id = single_recipe.spoonacular_id

@@ -8,6 +8,9 @@ from flask_app.models.ingredient import Ingredient
 from flask_app.models.shopping_list import ShoppingList
 from flask_app.models.user import User
 
+import os
+
+# Displays the home search page and deletes recipes from the database
 @app.route('/')
 def show_search_page():
     print("ready to find some recipes")
@@ -21,8 +24,10 @@ def show_search_page():
         shopping_list = ShoppingList.get_shopping_list(data)
     return render_template('search_page.html',shopping_list=shopping_list)
 
+# Searches the ingredient database dynamically by the current input in the search bar
 @app.route('/search_ingredients', methods=['POST'])
 def search_database_for_ingredients():
+    # print(os.environ.get("RECIPE_KEY"))
     data = {
         'ingredient_name': '%%' + request.form['value'] + '%%'
     }
@@ -37,11 +42,14 @@ def search_database_for_ingredients():
     json_package['counter'] = counter - 1
     return jsonify(json_package)
 
+# This route will send a call to the API to get recipes that match the ingredients selected
 @app.route('/find_recipes', methods=['POST'])
 def find_recipes():
     print("finding recipes....")
-    api_key = '1259ebb6297343a79a643091713a9e79'
+    api_key = os.environ.get("RECIPE_KEY")
+    # Number of recipes to retrieve from API
     number = 10
+    # Select 1 to maximize the selected ingredients in the returned recipe
     ranking = 1
     data = {
         **request.form
@@ -68,14 +76,17 @@ def find_recipes():
         Recipe.create_recipe(data)
     return redirect('/recipes')
 
+# Returns to the main search page
 @app.route('/back_to_search', methods=['POST'])
 def back_to_search():
     return redirect('/')
 
+# Returns to the list of recipes
 @app.route('/back_to_recipes', methods=['POST'])
 def back_to_recipes():
     return redirect('/recipes')
 
+# Clears the user's shopping list
 @app.route('/clear_shopping_list', methods=['POST'])
 def clear_list():
     data = {
@@ -84,6 +95,7 @@ def clear_list():
     ShoppingList.clear_shopping_list(data)
     return redirect(f'/{session["current_page"]}')
 
+# Adds the clicked item to the user's shopping list
 @app.route('/recipes/add_to_shopping_list', methods=['POST'])
 def add_item_to_shopping_list():
     if 'user_id' not in session:
@@ -95,6 +107,7 @@ def add_item_to_shopping_list():
     ShoppingList.add_item_to_shopping_list(data)
     return jsonify(message="item added")
 
+# Removes the selected item from the user's shopping list
 @app.route('/recipes/remove_from_shopping_list', methods=['POST'])
 def remove_item_from_shopping_list():
     data = {
